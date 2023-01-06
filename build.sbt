@@ -7,8 +7,8 @@ enablePlugins(ScalaJSPlugin)
 
 val commonSettings = Seq(
   organization := "com.github.kenbot",
-  scalaVersion in ThisBuild := "2.13.0",
-  crossScalaVersions := Seq("2.12.8", "2.13.0"),
+  scalaVersion in ThisBuild := "2.13.10",
+  crossScalaVersions := Seq("2.13.10"),
   scalacOptions += "-Ywarn-unused:imports",
   scalacOptions in (Compile, console) -= "-Ywarn-unused:imports",
   scalacOptions in (Test, console) -= "-Ywarn-unused:imports"
