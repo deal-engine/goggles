@@ -1,6 +1,6 @@
 package goggles
 
-import goggles.macros.errors.{SyntaxError, UserError}
+import goggles.macros.errors.{InternalError, SyntaxError, UserError}
 import goggles.macros.interpret.OpticType
 import goggles.macros.lex.Token
 import goggles.testdsl._
@@ -10,7 +10,7 @@ import OpticType._
 
 import Fixture._
 
-import scalaz.Monoid
+import cats.Monoid
 
 class HasArgsMethod { def bogus(a: Int): Int = 0 }
 class HasMultiParamMethod { def bogus()(): Int = 0 }
@@ -143,10 +143,10 @@ class ErrorsSpec extends Specification with ScalaCheck {
     val setter = Setter[Apple,Banana](_ => _ => Apple)
 
     val fold = new Fold[Banana, Carrot] {
-      def foldMap[M: Monoid](f: Carrot => M)(b: Banana): M = Monoid[M].zero
+      def foldMap[M](f: Carrot => M)(b: Banana)(implicit ev: Monoid[M]): M = Monoid[M].empty
     }
 
-    testGet"$Apple.$setter.$fold".errorOrResult === Left(UserError.WrongKindOfOptic(".$fold", "goggles.Fixture.Banana", "goggles.Fixture.Carrot", SetterType, FoldType))
+    testGet"$Apple.$setter.$fold".errorOrResult === Left(InternalError.UnexpectedOpticKind("monocle.Fold[goggles.Fixture.Banana,goggles.Fixture.Carrot]", 0))
   }
 
   def typesDontMatch = {
