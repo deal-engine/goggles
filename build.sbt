@@ -47,15 +47,15 @@ lazy val macrosProject = crossProject(JSPlatform, JVMPlatform)
     )
   )
 
-val specs2Version = "4.10.3"
+val specs2Version = "4.17.0"
 val specs2Deps = Seq(
   libraryDependencies += "org.specs2" %%% "specs2-core" % specs2Version % "test",
   libraryDependencies += "org.specs2" %%% "specs2-scalacheck" % specs2Version % "test"
 )
 
-val monocleVersion = "1.7.3"
+val monocleVersion = "3.2.0"
 val monocleDeps = Seq(
-  libraryDependencies += "com.github.julien-truffaut" %%% "monocle-core" % monocleVersion
+  libraryDependencies += "dev.optics" %%% "monocle-core" % monocleVersion
 )
 
 lazy val dslProject = crossProject(JSPlatform, JVMPlatform)
